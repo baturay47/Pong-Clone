@@ -19,10 +19,10 @@ public class Ball : MonoBehaviour {
                 speed = 2f;
                 break;
             case 1:
-                speed = 5f;
+                speed = 4f;
                 break;
             case 2:
-                speed = 10f;
+                speed = 6f;
                 break;
         }
 
@@ -47,6 +47,20 @@ public class Ball : MonoBehaviour {
         rigidBody.velocity = velocity;
 	}
 
+    void Update()
+    {
+        if (transform.position.x < -8.5f)
+        {
+            ScoreController.scoreController.GivePointtoPlayer(2);
+            ResetBall();
+        }
+        if (transform.position.x > 8.5f)
+        {
+            ScoreController.scoreController.GivePointtoPlayer(1);
+            ResetBall();
+        }
+    }
+
     void OnCollisionEnter(Collision other)
     {
         velocity = CalculateDirection(other.transform.up);
@@ -56,5 +70,13 @@ public class Ball : MonoBehaviour {
     private Vector3 CalculateDirection(Vector3 upVectorOfOther)
     {
         return -(2 * Vector3.Dot(velocity, upVectorOfOther) * upVectorOfOther - velocity);
+    }
+
+    void ResetBall()
+    {
+        transform.position = Vector3.zero;
+
+        velocity = new Vector3(speed, speed);
+        rigidBody.velocity = velocity;
     }
 }

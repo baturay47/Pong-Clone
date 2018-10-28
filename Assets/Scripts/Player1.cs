@@ -2,48 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player1 : MonoBehaviour {
+public class Player1 : Player {
 
-    public float padSpeed;
-
-    void Awake()
+    void Start()
     {
-        switch (PlayerPrefs.GetInt("padSpeed"))
-        {
-            case 0:
-                padSpeed = 1f;
-                break;
-            case 1:
-                padSpeed = 2f;
-                break;
-            case 2:
-                padSpeed = 5f;
-                break;
-        }
-
-        switch (PlayerPrefs.GetInt("padSize"))
-        {
-            case 0:
-                transform.localScale = new Vector3(1f, 0.3f, 1f);
-                break;
-            case 1:
-                transform.localScale = new Vector3(2f, 0.3f, 1f);
-                break;
-            case 2:
-                transform.localScale = new Vector3(3f, 0.3f, 1f);
-                break;
-        }
+        LoadPrefsandInit();
     }
 
-    // Update is called once per frame
-    void Update () {
-        if (Input.GetKey(KeyCode.W))
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.W) && transform.position.y < upperLimit)
         {
             this.transform.position += new Vector3(0, padSpeed*Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && transform.position.y > lowerLimit)
         {
-            this.transform.position += new Vector3(0, -padSpeed * Time.deltaTime);
+            this.transform.position -= new Vector3(0, padSpeed * Time.deltaTime);
         }
     }
 }
