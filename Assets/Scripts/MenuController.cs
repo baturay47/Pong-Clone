@@ -38,30 +38,34 @@ public class MenuController : MonoBehaviour {
 
     void StartGame()
     {
+        PlayerPrefs.SetInt("ballSize", (int)ballsizeSlider.value);
+        PlayerPrefs.SetInt("ballSpeed", (int)ballspeedSlider.value);
+        PlayerPrefs.SetInt("padSize", (int)padsizeSlider.value);
+        PlayerPrefs.SetInt("padSpeed", (int)padspeedSlider.value);
         SceneManager.LoadScene("Game");
     }
 
     void BallSizeChecker()
     {
-        ballsizeText.text = ValueMatcher((int)ballsizeSlider.value);
+        ballsizeText.text = SizeValueMatcher((int)ballsizeSlider.value);
     }
 
     void BallSpeedChecker()
     {
-        ballspeedText.text = ValueMatcher((int)ballspeedSlider.value);
+        ballspeedText.text = SpeedValueMatcher((int)ballspeedSlider.value);
     }
 
     void PadSizeChecker()
     {
-        padsizeText.text = ValueMatcher((int)padsizeSlider.value);
+        padsizeText.text = SizeValueMatcher((int)padsizeSlider.value);
     }
 
     void PadSpeedChecker()
     {
-        padspeedText.text = ValueMatcher((int)padspeedSlider.value);
+        padspeedText.text = SpeedValueMatcher((int)padspeedSlider.value);
     }
 
-    private string ValueMatcher(int value)
+    private string SizeValueMatcher(int value)
     {
         switch(value)
         {
@@ -71,6 +75,21 @@ public class MenuController : MonoBehaviour {
                 return "medium";
             case 2:
                 return "large";
+            default:
+                return "N/A";
+        }
+    }
+
+    private string SpeedValueMatcher(int value)
+    {
+        switch (value)
+        {
+            case 0:
+                return "slow";
+            case 1:
+                return "normal";
+            case 2:
+                return "fast";
             default:
                 return "N/A";
         }

@@ -5,11 +5,41 @@ using UnityEngine;
 public class Ball : MonoBehaviour {
 
     private Rigidbody rigidBody;
-    public float speed = 2f;
+    public float speed;
 
     public Vector3 velocity;
 
-	// Use this for initialization
+    // Use this for initialization
+
+    void Awake()
+    {
+        switch (PlayerPrefs.GetInt("ballSpeed"))
+        {
+            case 0:
+                speed = 2f;
+                break;
+            case 1:
+                speed = 5f;
+                break;
+            case 2:
+                speed = 10f;
+                break;
+        }
+
+        switch (PlayerPrefs.GetInt("ballSize"))
+        {
+            case 0:
+                transform.localScale *= 0.2f;
+                break;
+            case 1:
+                transform.localScale *= 0.5f;
+                break;
+            case 2:
+                transform.localScale *= 1f;
+                break;
+        }
+    }
+
 	void Start () {
         rigidBody = GetComponent<Rigidbody>();
         velocity = new Vector3(speed, speed);
